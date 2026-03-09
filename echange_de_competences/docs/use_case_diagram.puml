@@ -1,0 +1,97 @@
+@startuml use case diagram
+
+left to right direction
+
+package acteurs {
+    actor visiteur as VISITOR
+    actor "utilisateur connecté" as USER_CONNECTED
+    actor admin as ADMIN
+}
+
+USER_CONNECTED --|> VISITOR
+
+
+package "Système d'échange de compétences" {
+
+    rectangle "admin" {
+    usecase "ajouter une compétence" as CREATE_SKILL
+    usecase "ajouter un utilisateur" as CREATE_USER
+    }
+
+    rectangle "visiteur" {
+    usecase "consulter les activités planifiées" as VIEW_PLANNED
+    usecase "consulter la liste des compétences" as VIEW_SKILLS
+    }
+
+    rectangle "connexion" {
+    usecase "se connecter" as CONNECT
+
+    note right of CONNECT
+      L'utilisateur doit se connecter pour
+      gérer ses demandes d'aide et gérer
+      ses compétences
+    end note
+    }
+
+    rectangle "gestion des demandes d'aide" {
+    usecase "créer une demande d'aide" as CREATE_HELP_REQUEST
+    usecase "consulter les demandes d'aide" as VIEW_HELP_REQUESTS
+    usecase "accepter une demande d'aide" as ACCEPT_HELP_REQUEST
+    usecase "consulter les coordonnées d'un utilisateur" as VIEW_USER_CONTACT
+
+    note right of VIEW_USER_CONTACT
+      Les coordonnées (prénom, nom, email)
+      sont visibles uniquement pour les
+      utilisateurs impliqués dans
+      un(e) service/activité planifiée
+    end note
+
+    note right of ACCEPT_HELP_REQUEST
+      L'utilisateur ne peut accepter
+      qu'une demande correspondant à
+      l'une de ses compétences
+    end note
+
+    note right of VIEW_HELP_REQUESTS
+      L'utilisateur ne peut voir que
+      les demandes d'aide correspondant à
+      l'une de ses compétences
+    end note
+
+    note right of CREATE_HELP_REQUEST
+      Création de demande :
+      • Choix d'un créneau (journée entière)
+      • Sélection d'une compétence non possédée
+      • Description libre de l'activité
+    end note
+    }
+
+    rectangle "gestion des compétences"  {
+    usecase "indiquer ses compétences" as SET_SKILLS
+
+    }
+}
+
+ADMIN -- CREATE_SKILL
+ADMIN -- CREATE_USER
+VISITOR -- VIEW_PLANNED
+VISITOR -- VIEW_SKILLS
+
+USER_CONNECTED -- SET_SKILLS
+USER_CONNECTED -- CREATE_HELP_REQUEST
+USER_CONNECTED -- ACCEPT_HELP_REQUEST
+USER_CONNECTED -- VIEW_HELP_REQUESTS
+
+
+VIEW_USER_CONTACT ..> ACCEPT_HELP_REQUEST : <<extends>>
+SET_SKILLS ..> CONNECT : <<include>>
+CREATE_HELP_REQUEST ..> CONNECT : <<include>>
+ACCEPT_HELP_REQUEST ..> CONNECT : <<include>>
+VIEW_HELP_REQUESTS ..> CONNECT : <<include>>
+
+
+
+
+
+
+@enduml
