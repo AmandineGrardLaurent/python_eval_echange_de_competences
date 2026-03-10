@@ -1,9 +1,0 @@
-<h1>Liste des compétences</h1>
-
-{% if skill_list %}
-    {% for skill in skill_list %}
-        <p>{{skill.skill_name}}</p>
-    {% endfor %}
-{% else %}
-    <p>Aucune compétence enregistrée.</p>
-{% endif %}

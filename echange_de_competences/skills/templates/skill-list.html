@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Les compétences du site{% endblock %}
+
+{% block content %}
+    <h1>Liste des compétences du site</h1>
+
+    {% if skill_list %}
+        {% for skill in skill_list %}
+            <p>{{skill.skill_name}}</p>
+        {% endfor %}
+    {% else %}
+        <p>Aucune compétence enregistrée.</p>
+    {% endif %}
+
+{% endblock %}
