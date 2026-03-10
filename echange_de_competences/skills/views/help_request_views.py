@@ -10,7 +10,7 @@ class AllHelpRequestPlannedView(generic.ListView):
     Vue listant toutes les demandes d'aide ayant déjà un aidant (helper)
     et un demandeur (requester) assignés.
     """
-    template_name = "help-requests-planned.html"
+    template_name = "skills/help-requests-planned.html"
     context_object_name = "help_request_planned"
 
     def get_queryset(self):
@@ -25,7 +25,7 @@ class AllHelpRequestBySkillView(LoginRequiredMixin, generic.ListView):
     Vue listant les demandes d'aide en attente dont la compétence correspond
     au profil de l'utilisateur connecté et dont la date n'est pas passée.
     """
-    template_name = "matching-skills-help-requests.html"
+    template_name = "skills/matching-skills-help-requests.html"
     context_object_name = "help_requests"
 
     def get_queryset(self):
