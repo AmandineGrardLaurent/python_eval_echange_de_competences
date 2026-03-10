@@ -60,7 +60,7 @@ package "Système d'échange de compétences" {
 
     note right of CREATE_HELP_REQUEST
       Création de demande :
-      • Choix d'un créneau (journée entière)
+      • Choix d'un créneau
       • Sélection d'une compétence non possédée
       • Description libre de l'activité
     end note
@@ -82,16 +82,10 @@ USER_CONNECTED -- CREATE_HELP_REQUEST
 USER_CONNECTED -- ACCEPT_HELP_REQUEST
 USER_CONNECTED -- VIEW_HELP_REQUESTS
 
-
 VIEW_USER_CONTACT ..> ACCEPT_HELP_REQUEST : <<extends>>
 SET_SKILLS ..> CONNECT : <<include>>
 CREATE_HELP_REQUEST ..> CONNECT : <<include>>
 ACCEPT_HELP_REQUEST ..> CONNECT : <<include>>
 VIEW_HELP_REQUESTS ..> CONNECT : <<include>>
-
-
-
-
-
 
 @enduml
