@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Les demandes planifiées{% endblock %}
+
+{% block content %}
+    <h1>Liste des demandes planifiées</h1>
+
+    {% if help_request_planned %}
+        {% for request in help_request_planned %}
+        <p>Demande planifiée n°{{ request.id }}</p>
+        <p>Date: {{ request.date|date:"d/m/Y" }}</p>
+        <p>Compétence: {{ request.skill.skill_name }}</p>
+        <p>Description: {{ request.description }}</p>
+        {% endfor %}
+
+    {% else %}
+        <p>Aucune demande planifiée.</p>
+    {% endif %}
+{% endblock %}
