@@ -53,7 +53,7 @@ ROOT_URLCONF = 'echange_de_competences.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR],
+        'DIRS': [BASE_DIR, 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,6 +117,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentification
-LOGIN_URL = '/skills/auth/login/'
-LOGIN_REDIRECT_URL = '/skills/my-skills/'
-LOGOUT_REDIRECT_URL = '/skills/auth/login/'
+LOGIN_URL = 'skills:login'
+LOGIN_REDIRECT_URL = 'skills:my-skills'
+LOGOUT_REDIRECT_URL = 'skills:all-skills'
