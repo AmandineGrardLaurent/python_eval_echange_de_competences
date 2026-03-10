@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Demandes en cours valides (date non dépassée)</h2>
+
+{% if help_requests %}
+    {% for request in help_requests %}
+        <p>Demande n°{{ request.id }}</p>
+        <p>Activité : {{ request.description }} </p>
+        <p>Domaine de compétence : {{ request.skill.skill_name }} </p>
+        <p>Pour le {{ request.date }} </p>
+    {% endfor %}
+{% else %}
+    <p>Aucune demande ne correspond à vos compétences actuelles.
+{% endif %}
+{% endblock %}
