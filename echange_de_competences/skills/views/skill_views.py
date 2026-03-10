@@ -8,7 +8,7 @@ class AllSkillsView(generic.ListView):
     """
     Vue permettant d'afficher toutes les compétences du site
     """
-    template_name = "skill_list.html"
+    template_name = "skill-list.html"
     context_object_name = "skill_list"
 
     def get_queryset(self):
