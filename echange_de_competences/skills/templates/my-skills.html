@@ -1,0 +1,9 @@
+<h1>Liste de mes compétences</h1>
+
+{% if my_skills_list %}
+    {% for user_skill in my_skills_list %}
+        <p>{{user_skill.skill.skill_name}}</p>
+    {% endfor %}
+{% else %}
+    <p>Aucune compétence enregistrée.</p>
+{% endif %}
