@@ -1,0 +1,35 @@
+@startuml classes diagram
+
+class UserSkill {
+    - user : User
+    - skill : Skill
+}
+
+class User {
+    - lastname : String
+    - firstname : String
+    - password : String
+    - email : String
+}
+
+class HelpRequest {
+    - helper : User
+    - requester : User
+    - skill : Skill
+    - description : String
+    - date : Date
+    - created_at : DateTime
+}
+
+class Skill {
+    - name : String
+}
+
+User "1" --> "0..*" HelpRequest : requester
+User "0..1" --> "0..*" HelpRequest : helper
+Skill "1" --> "0..*" HelpRequest
+
+User "1" --> "0..*" UserSkill
+Skill "1" --> "0..*" UserSkill
+
+@enduml
