@@ -40,7 +40,27 @@ class AddHelpRequestForm(forms.ModelForm):
 
     class Meta:
         model = HelpRequest
+
+        # Liste des champs du modèle à inclure dans le formulaire
         fields = ['skill', 'date', 'description']
+
+        # Personnalisation de l'affichage des champs
         widgets = {
             'description': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initialise le formulaire en filtrant les compétences,
+        on n'affiche que celles que l'utilisateur ne possède pas encore.
+        """
+        # On récupère l'utilisateur passé par la vue
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if user:
+            # On cherche les ids des compétences présentes dans UserSkill pour cet utilisateur
+            user_skill_ids = user.skills.values_list('skill_id', flat=True)
+
+            # On exclut ces compétences de la liste déroulante
+            self.fields['skill'].queryset = Skill.objects.exclude(id__in=user_skill_ids).order_by('skill_name')
