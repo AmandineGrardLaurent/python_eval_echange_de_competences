@@ -29,5 +29,10 @@ urlpatterns = [
     # URL pour accéder aux détails d'une demande d'aide ainsi que les coordonnées du demandeur
     path("help/requests/<int:pk>/detail/",
          help_request_views.HelpRequestDetailView.as_view(),
-         name="help-requests-detail")
+         name="help-requests-detail"),
+
+    # URL pour accéder au formulaire de création d'une nouvelle demande
+    path("help/requests/add/",
+         help_request_views.HelpRequestCreateView.as_view(),
+         name="help-requests-add")
 ]
