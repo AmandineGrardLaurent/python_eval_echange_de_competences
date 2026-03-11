@@ -12,7 +12,7 @@
 
     {% if user.is_authenticated %}
         <a href="{% url 'skills:my-skills' %}">Mes compétences</a>
-        <a href="{% url 'skills:matching-skills-help-requests' %}">Les demandes en cours</a>
+        <a href="{% url 'skills:help-requests-matching-skills' %}">Les demandes en cours</a>
         <span>
             Connecté en tant que : {{ user.username }}
             <form action="{% url 'skills:logout' %}" method="post" style="display:inline;">
