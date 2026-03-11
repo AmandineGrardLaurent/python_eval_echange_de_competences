@@ -47,3 +47,13 @@ class AllHelpRequestBySkillView(LoginRequiredMixin, generic.ListView):
                 .filter(date__gte=today)
                 .select_related('requester', 'skill')
                 .order_by('date'))
+
+
+class HelpRequestDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    Vue permettant d'accéder à la page détaillée d'une demande d'aide
+    et ainsi accéder aux coordonnées du demandeur
+    """
+    model = HelpRequest
+    template_name = "skills/help-requests-detail.html"
+    context_object_name = "help_request"
