@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Page détaillée de la demande {{ help_request.id }} {% endblock %}
+
+{% block content %}
+    <h1>Ajout d'une nouvelle demande d'aide</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Enregistrer ma demande
+        </button>
+    </form>
+
+{% endblock %}
