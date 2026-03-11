@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Description : {{ help_request.description }}</p>
+<p>Domaine de compétence : {{ help_request.skill }} </p>
+<p>Date : {{ help_request.date }}</p>
+
+
+<p>Merci de contacter {{ help_request.requester.first_name }} {{ help_request.requester.last_name }} pour prendre rdv :
+    {{ help_request.requester.email }}</p>
+
+
+{% endblock %}
