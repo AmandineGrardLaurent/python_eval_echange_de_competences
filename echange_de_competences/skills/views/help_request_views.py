@@ -95,6 +95,16 @@ class HelpRequestCreateView(LoginRequiredMixin, generic.CreateView):
     # Redirection vers la liste des compétences de l'utilisateur après succès
     success_url = reverse_lazy('skills:my-skills')
 
+    def get_form_kwargs(self):
+        """
+        On surcharge cette méthode pour envoyer l'utilisateur connecté
+        au formulaire afin qu'il puisse filtrer les compétences.
+        """
+        kwargs = super().get_form_kwargs()
+        # On récupère l'utilisateur connecté
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         """
         Cette méthode est appelée lorsque le formulaire est valide.
