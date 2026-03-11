@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Ajout des compétences{% endblock %}
+
+{% block content %}
+
+<h2>Quelles sont vos compétences ?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.skills }}
+    <br><br>
+    <button type="submit" >Enregistrer mes compétences</button>
+</form>
+
+<p><a href="{% url 'skills:my-skills' %}">Retour</a></p>
+{% endblock %}
