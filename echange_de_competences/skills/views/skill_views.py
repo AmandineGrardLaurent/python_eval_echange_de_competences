@@ -11,7 +11,7 @@ class AllSkillsView(generic.ListView):
     """
     Vue permettant d'afficher toutes les compétences du site
     """
-    template_name = "skills/skill-list.html"
+    template_name = "skills/all-skills.html"
     context_object_name = "skill_list"
 
     def get_queryset(self):
@@ -31,7 +31,7 @@ class UserSkillListView(LoginRequiredMixin, generic.ListView):
 
 
 class UserSkillCreateView(LoginRequiredMixin, FormView):
-    template_name = "skills/add-my-skill.html"
+    template_name = "skills/my-skills-add.html"
     form_class = AddUserSkillsForm
     success_url = reverse_lazy('skills:my-skills')
 

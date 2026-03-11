@@ -11,7 +11,7 @@ urlpatterns = [
     path("my/", skill_views.UserSkillListView.as_view(), name="my-skills"),
 
     # URL pour ajouter/retirer des compétences à l'utilisateur connecté
-    path("my/add/", skill_views.UserSkillCreateView.as_view(), name="add-my-skills"),
+    path("my/add/", skill_views.UserSkillCreateView.as_view(), name="my-skills-add"),
 
     # URL pour l'authentification
     path('auth/', include('django.contrib.auth.urls')),
