@@ -19,9 +19,10 @@ class AllHelpRequestPlannedView(generic.ListView):
 
     def get_queryset(self):
         # Récupère les demandes où le demandeur ET l'aidant ne sont pas nuls.
-        return (HelpRequest.objects
+        return ((HelpRequest.objects
                 .filter(requester__isnull=False, helper__isnull=False)
                 .select_related('requester', 'helper', 'skill'))
+                .order_by('date'))
 
 
 class AllHelpRequestBySkillView(LoginRequiredMixin, generic.ListView):
