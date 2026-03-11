@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Mes demandes{% endblock %}
+
+{% block content %}
+    <h1>Liste de mes demandes</h1>
+
+    {% if help_request_list %}
+        {% for request in help_request_list %}
+        <p>Date: {{ request.date|date:"d/m/Y" }}</p>
+        <p>Compétence: {{ request.skill.skill_name }}</p>
+        <p>Description: {{ request.description }}</p>
+            {% if request.helper %}
+                <p>{{ request.helper }} a accepté de vous aider.</p>
+            {% else %}
+                <p>Personne n'a encore accepté de vous aider.</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Aucune demande enregistrée.</p>
+    {% endif %}
+{% endblock %}
