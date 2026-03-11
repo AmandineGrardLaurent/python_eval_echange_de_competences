@@ -1,6 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.views import generic
+from django.contrib import messages
 
 from skills.models import HelpRequest, UserSkill
 
@@ -57,3 +59,23 @@ class HelpRequestDetailView(LoginRequiredMixin, generic.DetailView):
     model = HelpRequest
     template_name = "skills/help-requests-detail.html"
     context_object_name = "help_request"
+
+    def post(self, request, *args, **kwargs):
+        """
+        Cette méthode gère la confirmation d'aide d'un utilisateur sur une demande spécifique.
+        Elle assigne l'utilisateur connecté comme 'helper' de la demande si aucun
+        autre aidant n'est déjà enregistré.
+        """
+        # On récupère la demande d'aide actuelle
+        help_request = self.get_object()
+
+        # On vérifie si la demande n'a pas déjà un helper
+        if help_request.helper is None:
+            help_request.helper = request.user
+            help_request.save()
+            messages.success(request, "Bravo ! Vous êtes maintenant inscrit comme aidant.")
+        else:
+            messages.warning(request, "Désolé, quelqu'un a déjà proposé son aide pour cette demande.")
+
+        # On redirige l'utilisateur sur la page des demandes planifiées
+        return redirect('skills:help-requests-planned')
