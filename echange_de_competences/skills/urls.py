@@ -34,5 +34,10 @@ urlpatterns = [
     # URL pour accéder au formulaire de création d'une nouvelle demande
     path("help/requests/add/",
          help_request_views.HelpRequestCreateView.as_view(),
-         name="help-requests-add")
+         name="help-requests-add"),
+
+    # URL pour accéder aux demandes faîtes par un utilisateur connecté
+    path("help/requests/my/",
+         help_request_views.UserHelpRequestView.as_view(),
+         name="my-help-requests")
 ]
