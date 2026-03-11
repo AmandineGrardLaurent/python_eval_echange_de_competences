@@ -115,3 +115,18 @@ class HelpRequestCreateView(LoginRequiredMixin, generic.CreateView):
 
         # On appelle la méthode parente pour finaliser l'enregistrement et la redirection
         return super().form_valid(form)
+
+
+class UserHelpRequestView(LoginRequiredMixin, generic.ListView):
+    """
+    Vue listant toutes les demandes d'aide ayant été faîtes par l'utilisateur connecté
+    """
+    template_name = "skills/help-requests-my.html"
+    context_object_name = "help_request_list"
+
+    def get_queryset(self):
+        # Récupère les demandes uniquement de l'utilisateur connecté
+        return ((HelpRequest.objects
+                .filter(requester=self.request.user)
+                .select_related('requester', 'helper', 'skill'))
+                .order_by('date'))
