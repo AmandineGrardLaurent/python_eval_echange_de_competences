@@ -10,5 +10,13 @@
 <p>Merci de contacter {{ help_request.requester.first_name }} {{ help_request.requester.last_name }} pour prendre rdv :
     {{ help_request.requester.email }}</p>
 
+{% if not help_request.helper %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">
+            Je confirme mon aide
+        </button>
+    </form>
+{% endif %}
 
 {% endblock %}
