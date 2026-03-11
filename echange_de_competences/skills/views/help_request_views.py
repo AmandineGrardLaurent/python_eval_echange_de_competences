@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
 from django.contrib import messages
 
+from skills.forms import AddHelpRequestForm
 from skills.models import HelpRequest, UserSkill
 
 
@@ -79,3 +81,26 @@ class HelpRequestDetailView(LoginRequiredMixin, generic.DetailView):
 
         # On redirige l'utilisateur sur la page des demandes planifiées
         return redirect('skills:help-requests-planned')
+
+
+class HelpRequestCreateView(LoginRequiredMixin, generic.CreateView):
+    """
+    Vue permettant à l'utilisateur connecté de créer une demande d'aide
+    """
+    model = HelpRequest
+    form_class = AddHelpRequestForm
+    template_name = "skills/help-requests-add.html"
+
+    # Redirection vers la liste des compétences de l'utilisateur après succès
+    success_url = reverse_lazy('skills:my-skills')
+
+    def form_valid(self, form):
+        """
+        Cette méthode est appelée lorsque le formulaire est valide.
+        Elle permet d'ajouter des données automatiques avant la sauvegarde.
+        """
+        # On injecte l'utilisateur actuellement connecté dans le champ 'requester'
+        form.instance.requester = self.request.user
+
+        # On appelle la méthode parente pour finaliser l'enregistrement et la redirection
+        return super().form_valid(form)
