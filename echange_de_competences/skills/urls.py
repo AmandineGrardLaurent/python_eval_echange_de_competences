@@ -24,5 +24,10 @@ urlpatterns = [
     # URL pour accéder aux demandes en lien avec les compétences de l'utilisateur connecté
     path("help/requests/matching-skills/",
          help_request_views.AllHelpRequestBySkillView.as_view(),
-         name="help-requests-matching-skills")
+         name="help-requests-matching-skills"),
+
+    # URL pour accéder aux détails d'une demande d'aide ainsi que les coordonnées du demandeur
+    path("help/requests/<int:pk>/detail/",
+         help_request_views.HelpRequestDetailView.as_view(),
+         name="help-requests-detail")
 ]
