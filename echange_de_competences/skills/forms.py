@@ -1,5 +1,5 @@
 from django import forms
-from skills.models import UserSkill, Skill
+from skills.models import Skill, HelpRequest
 
 
 class AddUserSkillsForm(forms.Form):
@@ -19,3 +19,28 @@ class AddUserSkillsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+
+class AddHelpRequestForm(forms.ModelForm):
+    """
+    Formulaire permettant à un utilisateur de créer une nouvelle demande d'aide.
+    """
+
+    # Champ de sélection pour la compétence
+    skill = forms.ModelChoiceField(
+        queryset=Skill.objects.all(),
+        label="Compétence requise",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    # Champ pour la date avec un sélecteur de date
+    date = forms.DateField(
+        label="Date de l'activité/service",
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-control'})
+    )
+
+    class Meta:
+        model = HelpRequest
+        fields = ['skill', 'date', 'description']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
+        }
