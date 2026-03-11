@@ -12,4 +12,6 @@
     {% else %}
         <p>Aucune compétence enregistrée.</p>
     {% endif %}
+
+    <a href="{% url 'skills:add-my-skills' %}" >Ajouter des compétences</a>
 {% endblock %}
