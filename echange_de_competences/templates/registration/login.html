@@ -1,6 +1,46 @@
-<h2>Connexion</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Se connecter</button>
-</form>
+{% extends "base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto mt-12 bg-white rounded-xl shadow-md border border-orange-100 p-6">
+
+    <h2 class="text-2xl font-bold text-orange-600 mb-6 text-center">
+        Connexion
+    </h2>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Champ username -->
+        <div>
+            <label for="{{ form.username.id_for_label }}" class="block text-slate-700 font-medium mb-1">
+                {{ form.username.label }}
+            </label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <p class="text-red-600 text-sm">{{ form.username.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Champ password -->
+        <div>
+            <label for="{{ form.password.id_for_label }}" class="block text-slate-700 font-medium mb-1">
+                {{ form.password.label }}
+            </label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <p class="text-red-600 text-sm">{{ form.password.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Bouton connexion -->
+        <button type="submit" class="btn-link">
+            Se connecter
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}
