@@ -3,13 +3,20 @@
 {% block title %} Page détaillée de la demande {{ help_request.id }} {% endblock %}
 
 {% block content %}
-    <h1>Ajout d'une nouvelle demande d'aide</h1>
+    <h2 class="h2-page">Ajout d'une nouvelle demande d'aide</h2>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">
+        <button type="submit" class="btn-link">
             Enregistrer ma demande
         </button>
     </form>
+
+<p class="mt-4">
+    <a href="{% url 'skills:my-help-requests' %}" class="btn-back">
+        ← Retour
+    </a>
+</p>
 
 {% endblock %}
