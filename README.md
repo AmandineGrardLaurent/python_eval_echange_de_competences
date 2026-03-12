@@ -53,12 +53,16 @@ python manage.py createsuperuser
 
 ---
 
-## Lancement du serveur
+## Développement
 
+Pour travailler sur le projet, lancez ces deux commandes dans des terminaux séparés :
+
+**Compilateur CSS**
 ``` bash
 python manage.py tailwind start
 ```
 
+**Serveur**
 ``` bash
 python manage.py runserver
 ```
@@ -99,11 +103,22 @@ python_eval_echange_de_competences/
 
 ```
 ---
+## Architecture des données
+
+Le projet repose sur trois piliers :
+
+- Skill : Le catalogue des savoir-faire.
+
+- UserSkill : Table de liaison gérant les compétences acquises par chaque utilisateur.
+
+- HelpRequest : Les annonces postées, reliant un demandeur, un potentiel aidant et une compétence.
+
+---
 
 ## Technologies utilisées
 
 - Python 3.13.7
-
 - Django 5.2.12
-
 - Tailwind CSS
+- SQLite 
+- django-browser-reload
