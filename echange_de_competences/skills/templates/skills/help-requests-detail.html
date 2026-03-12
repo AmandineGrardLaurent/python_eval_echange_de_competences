@@ -1,24 +1,53 @@
 {% extends "base.html" %}
 
-{% block title %} Page détaillée de la demande {{ help_request.id }} {% endblock %}
+{% block title %}Page détaillée de la demande {{ help_request.id }}{% endblock %}
 
 {% block content %}
 
-<p>Description : {{ help_request.description }}</p>
-<p>Domaine de compétence : {{ help_request.skill }} </p>
-<p>Date : {{ help_request.date }}</p>
+<article class="bg-white rounded-xl shadow-md border border-orange-100 p-6 max-w-3xl mx-auto space-y-4">
 
+    <h2 class="h2-page">
+        Détail de la demande
+    </h2>
 
-<p>Merci de contacter {{ help_request.requester.first_name }} {{ help_request.requester.last_name }} pour prendre rdv :
-    {{ help_request.requester.email }}</p>
+    <div class="space-y-2">
+        <p>
+            <span class="font-medium text-slate-600">Description :</span>
+            <span class="text-slate-800">{{ help_request.description }}</span>
+        </p>
 
-{% if not help_request.helper %}
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">
-            Je confirme mon aide
-        </button>
-    </form>
-{% endif %}
+        <p>
+            <span class="font-medium text-slate-600">Domaine de compétence :</span>
+            <span class="text-orange-600 font-semibold">{{ help_request.skill }}</span>
+        </p>
+
+        <p>
+            <span class="font-medium text-slate-600">Date :</span>
+            <span class="text-slate-800">{{ help_request.date|date:"d/m/Y" }}</span>
+        </p>
+    </div>
+
+    <div class="bg-amber-50 border-l-4 border-orange-400 p-4 rounded-md">
+        <p class="text-slate-800">
+            Merci de contacter <span class="font-semibold">{{ help_request.requester.first_name }} {{ help_request.requester.last_name }}</span> pour prendre rendez-vous :
+            <a href="mailto:{{ help_request.requester.email }}" class="text-orange-600 underline">{{ help_request.requester.email }}</a>
+        </p>
+    </div>
+
+    {% if not help_request.helper %}
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <button type="submit"
+                    class="btn-link">
+                Je confirme mon aide
+            </button>
+        </form>
+    {% else %}
+        <p class="text-green-600 font-semibold mt-2">
+            Cette demande a déjà été prise en charge par {{ help_request.helper }}.
+        </p>
+    {% endif %}
+
+</article>
 
 {% endblock %}
