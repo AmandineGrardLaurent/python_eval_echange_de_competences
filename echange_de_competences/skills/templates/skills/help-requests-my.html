@@ -3,20 +3,52 @@
 {% block title %}Mes demandes{% endblock %}
 
 {% block content %}
-    <h1>Liste de mes demandes</h1>
 
-    {% if help_request_list %}
+<h2 class="h2-page">
+    Mes demandes
+</h2>
+
+{% if help_request_list %}
+
+    <p class="p-count">
+        {{ help_request_list|length }} demande{{ help_request_list|pluralize }} faîte{{ help_request_list|pluralize }}.
+    </p>
+
+    <p class="page-description">
+        Retrouvez ici toutes vos demandes d'aide.
+    </p>
+
+    <section class="space-y-6">
+
         {% for request in help_request_list %}
-        <p>Date: {{ request.date|date:"d/m/Y" }}</p>
-        <p>Compétence: {{ request.skill.skill_name }}</p>
-        <p>Description: {{ request.description }}</p>
-            {% if request.helper %}
-                <p>{{ request.helper }} a accepté de vous aider.</p>
-            {% else %}
-                <p>Personne n'a encore accepté de vous aider.</p>
-            {% endif %}
+            <article class="bg-white rounded-xl shadow-md border border-orange-100 p-6 hover:shadow-lg transition">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {{ request.date|date:"d/m/Y" }}
+                    </span>
+                    <span class="text-slate-500 text-sm">
+                        {% if request.helper %}
+                            {{ request.helper.first_name }} {{ request.helper.last_name }} a accepté
+                        {% else %}
+                            En attente d'aide
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-xs uppercase tracking-wide text-slate-400">Compétence requise</span>
+                    <p class="text-lg font-semibold text-orange-600">{{ request.skill.skill_name }}</p>
+                </div>
+
+                <p class="text-slate-700 leading-relaxed">{{ request.description }}</p>
+            </article>
         {% endfor %}
-    {% else %}
-        <p>Aucune demande enregistrée.</p>
-    {% endif %}
+    </section>
+
+{% else %}
+    <div class="empty-message">
+            Aucune demande enregistrée pour le moment.
+    </div>
+{% endif %}
+
 {% endblock %}
