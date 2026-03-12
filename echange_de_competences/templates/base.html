@@ -1,46 +1,115 @@
+{% load tailwind_tags %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Echange de compétences{% endblock %}</title>
+    {% tailwind_css %}
+    <title>{% block title %}Troc & Astuces{% endblock %}</title>
 </head>
-<body>
 
-<nav>
-    <a href="{% url 'skills:all-skills' %}">Les compétences du site</a>
-    <a href="{% url 'skills:help-requests-planned' %}">Demandes planifiées</a>
+<body class="bg-orange-50 text-slate-800 min-h-screen flex flex-col">
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'skills:my-skills' %}">Mes compétences</a>
-        <a href="{% url 'skills:help-requests-matching-skills' %}">Les demandes en cours</a>
-        <a href="{% url 'skills:help-requests-add' %}">Faire une demande</a>
-        <a href="{% url 'skills:my-help-requests' %}">Mes demandes</a>
-        <span>
-            Connecté en tant que : {{ user.username }}
-            <form action="{% url 'skills:logout' %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Déconnexion</button>
-            </form>
-        </span>
-    {% else %}
-            <a href="{% url 'skills:login' %}">Connexion</a>
-    {% endif %}
-</nav>
+<!-- navbar -->
+<header class="bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg">
+    <div class="max-w-8xl mx-auto px-6 py-4 flex justify-between items-center">
 
-<main>
-    <div>
+        <h1 class="text-2xl font-extrabold border-b-2 border-white pb-1">
+            Troc & Astuces
+        </h1>
+
+        <nav class="flex items-center gap-3 text-sm font-medium">
+
+            <a class="nav-btn"
+               href="{% url 'skills:all-skills' %}">
+                Compétences
+            </a>
+
+            <a class="nav-btn"
+               href="{% url 'skills:help-requests-planned' %}">
+                Demandes planifiées
+            </a>
+            <!-- utilisateur connecté : accès réservés -->
+            {% if user.is_authenticated %}
+
+                <a class="nav-btn"
+                   href="{% url 'skills:my-skills' %}">
+                    Mes compétences
+                </a>
+
+                <a class="nav-btn"
+                   href="{% url 'skills:help-requests-matching-skills' %}">
+                    Aider
+                </a>
+
+                <a class="nav-btn"
+                   href="{% url 'skills:help-requests-add' %}">
+                    Demander
+                </a>
+
+                <a class="nav-btn"
+                   href="{% url 'skills:my-help-requests' %}">
+                    Mes demandes
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+        <div class="flex items-center gap-3 text-sm">
+            <!-- utilisateur connecté : bonjour personnalisé + déconnexion -->
+            {% if user.is_authenticated %}
+
+                <span>Bonjour {{ user.username }}</span>
+
+                <form action="{% url 'skills:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="nav-btn-login">
+                        Déconnexion
+                    </button>
+                </form>
+
+            {% else %}
+
+                <a class="nav-btn-login"
+                   href="{% url 'skills:login' %}">
+                    Connexion
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</header>
+
+
+<!-- contenu principal -->
+<main class="flex-grow max-w-5xl mx-auto w-full p-6">
+
+    <!-- affichage des messages de succès ou d'erreur -->
     {% if messages %}
-        {% for message in messages %}
-            <div>
-                {{ message }}
-            </div>
-        {% endfor %}
+        <div class="mb-6 space-y-3">
+            {% for message in messages %}
+                <div class="bg-amber-100 border border-amber-300 text-amber-800 px-4 py-3 rounded-lg shadow-sm">
+                    message : {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
+
+    <div class="bg-white rounded-xl shadow-md p-6 border border-orange-100">
+
+        {% block content %}
+        {% endblock %}
+
     </div>
 
-    {% block content %}
-    {% endblock %}
 </main>
+
+<footer class="text-center text-sm text-orange-400 pb-6">
+    Plateforme d’échange de compétences
+</footer>
 
 </body>
 </html>
