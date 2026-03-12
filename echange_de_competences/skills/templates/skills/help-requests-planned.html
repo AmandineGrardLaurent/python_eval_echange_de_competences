@@ -3,17 +3,53 @@
 {% block title %}Les demandes planifiées{% endblock %}
 
 {% block content %}
-    <h1>Liste des demandes planifiées</h1>
 
-    {% if help_request_planned %}
+<h2 class="h2-page">
+    Demandes planifiées
+</h2>
+
+{% if help_request_planned %}
+
+    <p class="p-count">
+        {{ help_request_planned|length }} demande{{ help_request_planned|pluralize }} planifiée{{ help_request_planned|pluralize }}
+    </p>
+
+    <section class="space-y-6">
+
+    <p class="page-description">
+        Retrouvez ici les demandes d'aide déjà acceptées et planifiées entre utilisateurs.
+    </p>
+
         {% for request in help_request_planned %}
-        <p>Demande planifiée n°{{ request.id }}</p>
-        <p>Date: {{ request.date|date:"d/m/Y" }}</p>
-        <p>Compétence: {{ request.skill.skill_name }}</p>
-        <p>Description: {{ request.description }}</p>
-        {% endfor %}
 
-    {% else %}
-        <p>Aucune demande planifiée.</p>
-    {% endif %}
+            <article class="bg-white rounded-xl shadow-md border border-orange-100 p-6 hover:shadow-lg transition">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-xs uppercase tracking-wide text-slate-400">
+                            Compétence recherchée
+                        </span>
+
+                        <p class="text-lg font-semibold text-orange-600">
+                            {{ request.skill.skill_name }}
+                        </p>
+
+                    </div>
+                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {{ request.date|date:"d/m/Y" }}
+                    </span>
+                </div>
+                <p class="text-slate-700 leading-relaxed">
+                    {{ request.description }}
+                </p>
+            </article>
+        {% endfor %}
+    </section>
+
+{% else %}
+    <div class="empty-message">
+            Aucune demande planifiée pour le moment.
+    </div>
+
+{% endif %}
+
 {% endblock %}
