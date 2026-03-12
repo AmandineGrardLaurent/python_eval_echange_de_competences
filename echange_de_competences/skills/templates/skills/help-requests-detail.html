@@ -4,7 +4,6 @@
 
 {% block content %}
 
-<article class="bg-white rounded-xl shadow-md border border-orange-100 p-6 max-w-3xl mx-auto space-y-4">
 
     <h2 class="h2-page">
         Détail de la demande
@@ -47,7 +46,10 @@
             Cette demande a déjà été prise en charge par {{ help_request.helper }}.
         </p>
     {% endif %}
-
-</article>
+<p class="mt-4">
+    <a href="{% url 'skills:help-requests-matching-skills' %}" class="btn-back">
+        ← Retour
+    </a>
+</p>
 
 {% endblock %}
