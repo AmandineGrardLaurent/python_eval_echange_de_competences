@@ -3,15 +3,38 @@
 {% block title %}Mes Compétences{% endblock %}
 
 {% block content %}
-    <h1>Liste de mes compétences</h1>
 
-    {% if my_skills_list %}
+<h2 class="h2-page">
+    Mes compétences
+</h2>
+
+{% if my_skills_list %}
+
+    <p class="p-count">
+        {{ my_skills_list|length }} compétence{{ my_skills_list|pluralize }} enregistrée{{ my_skills_list|pluralize }}
+    </p>
+
+    <div class="container-skills">
+
         {% for user_skill in my_skills_list %}
-            <p>{{user_skill.skill.skill_name}}</p>
+            <div class="btn-skill">
+                {{ user_skill.skill.skill_name }}
+            </div>
         {% endfor %}
-    {% else %}
-        <p>Aucune compétence enregistrée.</p>
-    {% endif %}
 
-    <a href="{% url 'skills:my-skills-add' %}" >Ajouter des compétences</a>
+    </div>
+
+{% else %}
+
+    <div class="empty-message">
+            Aucune compétence enregistrée.
+    </div>
+
+{% endif %}
+
+    <a href="{% url 'skills:my-skills-add' %}"
+       class="btn-link">
+        Ajouter des compétences
+    </a>
+
 {% endblock %}
