@@ -3,14 +3,37 @@
 {% block title %}Les compétences du site{% endblock %}
 
 {% block content %}
-    <h1>Liste des compétences du site</h1>
 
-    {% if skill_list %}
+<h2 class="h2-page">
+    Liste des compétences
+</h2>
+
+{% if skill_list %}
+
+    <p class="p-count">
+        {{ skill_list|length }} compétence{{ skill_list|pluralize }} enregistrée{{ skill_list|pluralize }}
+    </p>
+
+    <p class="page-description">
+        Retrouvez ci-dessous toutes les compétences disponibles sur la plateforme.
+    </p>
+
+    <article class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+
         {% for skill in skill_list %}
-            <p>{{skill.skill_name}}</p>
+            <div class="btn-skill">
+                {{ skill.skill_name }}
+            </div>
         {% endfor %}
-    {% else %}
-        <p>Aucune compétence enregistrée.</p>
-    {% endif %}
+
+    </article>
+
+{% else %}
+
+    <div class="empty-message">
+            Aucune compétence enregistrée pour le moment.
+    </div>
+
+{% endif %}
 
 {% endblock %}
