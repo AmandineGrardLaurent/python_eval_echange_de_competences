@@ -4,14 +4,35 @@
 
 {% block content %}
 
-<h2>Quelles sont vos compétences ?</h2>
+<h2 class="h2-page">
+    Quelles sont vos compétences ?
+</h2>
 
-<form method="post">
+<form method="post" class="bg-white rounded-xl shadow-md border border-orange-100 p-6 space-y-4">
+
     {% csrf_token %}
-    {{ form.skills }}
-    <br><br>
-    <button type="submit" >Enregistrer mes compétences</button>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 items-center">
+        {% for checkbox in form.skills %}
+            <div class="flex items-center gap-2">
+                {{ checkbox.tag }} <!-- Case à cocher classique -->
+                <label for="{{ checkbox.id_for_label }}" class="text-slate-700 font-medium">
+                    {{ checkbox.choice_label }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn-link">
+        Enregistrer mes compétences
+    </button>
+
 </form>
 
-<p><a href="{% url 'skills:my-skills' %}">Retour</a></p>
+<p class="mt-4">
+    <a href="{% url 'skills:my-skills' %}" class="btn-back">
+        ← Retour
+    </a>
+</p>
+
 {% endblock %}
