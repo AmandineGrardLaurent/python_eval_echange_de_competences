@@ -67,7 +67,7 @@ python manage.py tailwind start
 python manage.py runserver
 ```
 
-Accéder à l’application sur http://127.0.0.1:8000
+Accéder à l’application sur http://127.0.0.1:8000/skills/auth/login/
 
 ---
 
