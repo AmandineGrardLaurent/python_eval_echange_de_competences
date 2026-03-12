@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'skills.apps.SkillsConfig',
+    'tailwind',
+    'tailwindtheme',
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -46,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -120,3 +124,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'skills:login'
 LOGIN_REDIRECT_URL = 'skills:my-skills'
 LOGOUT_REDIRECT_URL = 'skills:all-skills'
+
+# Style
+TAILWIND_APP_NAME = 'tailwindtheme'
